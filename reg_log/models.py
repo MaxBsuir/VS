@@ -1,15 +1,20 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+
+def validate_date(value):
+    if value <= 0:
+        raise ValidationError('%s Введите корректное значение' % value)
 
 class Client(models.Model):
     name = models.CharField('Имя', max_length=50)
     surname = models.CharField('Фамилия', max_length=50)
     patronymic = models.CharField('Отчество', max_length=50)
-    phone = models.CharField('Телефон', max_length=50)
+    phone = models.CharField('Телефон', max_length=50, unique=True)
     address = models.CharField('Адрес', max_length=50)
-    experience = models.IntegerField('Опыт вождения')
-    driver_license = models.CharField('№ лиценции', max_length=50)
+    experience = models.IntegerField('Опыт вождения', validators=[validate_date])
+    driver_license = models.CharField('№ лиценции', max_length=50, unique=True)
     def __str__(self):
          return '{} {}'.format(self.id, self.surname)
     class Meta:
@@ -17,15 +22,19 @@ class Client(models.Model):
 
 class Passport(models.Model):
     client = models.OneToOneField(Client, on_delete = models.CASCADE, primary_key = True)
-    series = models.CharField('Серия', max_length=50)
-    identification_number = models.CharField('Идентификационный номер', max_length=50)
+    series = models.CharField('Серия', max_length=50, unique=True)
+    identification_number = models.CharField('Идентификационный номер', max_length=50, unique=True)
     def __str__(self):
          return '{}'.format(self.client)
+    class Meta:
+         ordering = ('client', )
 
 class Account(models.Model):
     id_client = models.OneToOneField(Client, on_delete = models.CASCADE, primary_key = True)
     #user = models.OneToOneField(User, on_delete=models.CASCADE)
-    email = models.EmailField('Почта', max_length=50)
+    email = models.EmailField('Почта', max_length=50, unique=True)
     #password = models.CharField('Пароль', max_length=50)
     def __str__(self):
          return '{}'.format(self.id_client)
+    class Meta:
+         ordering = ('id_client', )

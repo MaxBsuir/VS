@@ -9,14 +9,14 @@ class AutoAdmin(admin.ModelAdmin):
     search_fields = ['brand', 'model', 'body_type', 'transmission']    
 admin.site.register(Auto, AutoAdmin)
 
-class ServiceAdmin(admin.ModelAdmin):
-    list_display = ['id', 'id_auto', 'date_of_start', 'date_of_end', 'repair_description']
-    list_editable = ['repair_description']
-    search_fields = ['date_of_start']
-admin.site.register(Service, ServiceAdmin)
-
 class Road_AccidentAdmin(admin.ModelAdmin):
-    list_display = ['id', 'id_auto', 'id_service', 'date_road_accident', 'defect']
+    list_display = ['id', 'id_auto', 'date_road_accident', 'defect']
     list_editable = ['defect']
     search_fields = ['date_road_accident']
 admin.site.register(Road_Accident, Road_AccidentAdmin)
+
+class ServiceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'id_road_accident', 'id_auto', 'date_of_start', 'date_of_end', 'repair_description']
+    list_editable = ['repair_description']
+    search_fields = ['date_of_start']
+admin.site.register(Service, ServiceAdmin)

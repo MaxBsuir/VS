@@ -26,5 +26,8 @@ urlpatterns = [
     url(r'^$',include('main.urls')),
     url('catalog',include('catalog.urls')),
     url('reg_log',include('reg_log.urls')),
+    url('accounts/', include('django.contrib.auth.urls')),
+    url('registration/', include('accounts.urls')),
+    url('edit/', include('accounts.urls')),
     #url('user_cab',include('user_cab.urls')),
 ]
