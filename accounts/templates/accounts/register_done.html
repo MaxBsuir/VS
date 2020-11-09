@@ -3,10 +3,70 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>Поздравляем!</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+            background: #34495e;
+            background: linear-gradient( rgba(255, 255, 255, 0.8), rgba(0, 0, 0, 0.5) ), url('/static/main/images/car-9.jpg');
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: top;
+        }
+
+        h1 {
+            position: absolute;
+            top: 20%;
+            left: 7%;
+            color: white;
+            font-size: 40px;
+        }
+
+        p {
+            position: absolute;
+            top: 30%;
+            left: 7%;
+            color: white;
+            font-size: 30px;
+        }
+
+        span {
+            color: #01d28e;
+        }
+
+        a:-webkit-any-link {
+            color: #01d28e;
+            text-decoration: none;
+        }
+
+            a:-webkit-any-link:hover {
+                color: orangered;
+            }
+
+        .rectangle {
+            width: 105%;
+            height: 250px;
+            border: 3px solid;
+            border-color: #01d28e;
+            margin: auto;
+            border-radius: 120px;
+            background: #191919;
+            position: absolute;
+            top: 15%;
+            left: -10%;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome {{ new_user.first_name }}!</h1>
-    <p>Your account has been successfully created. Now you can <a href="{% url 'login' %}">log in</a></p>
+
+    <div class="rectangle"></div>
+    <h1>Welcome <span>{{ new_user.first_name }}</span>!</h1>
+    <p>Ваша учетная запись была успешно создана. Теперь вы можете <a href="/edit/edit/">заполнить анкету</a></p>
+    <!--<h1>Welcome {{ new_user.first_name }}!</h1>
+    <p>Ваша учетная запись была успешно создана. Теперь вы можете <a href="{% url 'login' %}">авторизироваться</a></p>
+    <p>Ваша учетная запись была успешно создана. Теперь вы можете <a href="/edit/edit/">заполнить анкету</a></p>-->
 </body>
 </html>

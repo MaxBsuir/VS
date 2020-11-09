@@ -3,45 +3,43 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="description"/>
+    <title>Логин</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/loginstyle.css' %}">
 </head>
 <body>
-    <p>Пожалуйста, используйте следующую форму для входа в систему. Если у вас нет учетной записи <a href="{% url 'register' %}">зарегистрируйтесь здесь</a></p>
-    {% if form.errors %}
-    <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
-    {% endif %}
 
-    {% if next %}
-    {% if user.is_authenticated %}
-    <p>
-        У вашей учетной записи нет доступа к этой странице. Чтобы продолжить, войдите в систему с учетной записью, которая имеет доступ.
-    </p>
-    {% else %}
-    <p>Пожалуйста, войдите, чтобы увидеть эту страницу.</p>
-    {% endif %}
-    {% endif %}
+    <form class="box" action="{% url 'login' %}" method="post">
 
-    <form method="post" action="{% url 'login' %}">
+        <h1>Login</h1>
+        {% if form.errors %}
+        <p>Ваше имя пользователя и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
+        <p>Возможно вы не зарегистрированы? Если у вас нет учетной записи <br><a href="{% url 'register' %}">зарегистрируйтесь здесь</a></p>
+        {% endif %}
+
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p>
+            У вашей учетной записи нет доступа к этой странице. Чтобы продолжить, войдите в систему с учетной записью, которая имеет доступ.
+        </p>
+        {% else %}
+        <p>Пожалуйста, войдите, чтобы увидеть эту страницу.</p>
+        {% endif %}
+        {% endif %}
         {% csrf_token %}
-        <table>
 
-            <tr>
-                <td>{{ form.username.label_tag }}</td>
-                <td>{{ form.username }}</td>
-            </tr>
-
-            <tr>
-                <td>{{ form.password.label_tag }}</td>
-                <td>{{ form.password }}</td>
-            </tr>
-        </table>
+        {{ form.username }}
+        {{ form.password }}
 
         <input type="submit" value="Войти" />
+        <input type="button" onclick="history.back();" value="Назад" />
         <input type="hidden" name="next" value="{{ next }}" />
+
+        {# Assumes you setup the password_reset view in your URLconf #}
+        <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+        <p><a href="{% url 'register' %}">Вы не зарегистрированы?</a></p>
     </form>
 
-    {# Assumes you setup the password_reset view in your URLconf #}
-    <p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
-    <p><a href="{% url 'register' %}">Вы не зарегистрированы?</a></p>
 </body>
 </html>

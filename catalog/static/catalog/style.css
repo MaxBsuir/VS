@@ -1,0 +1,19 @@
+﻿.nav.nav-pills.nav-justified {
+    background: #DFEBFB;
+}
+
+.nav.justify-content-end {
+    background: #DFEBFB;
+}
+
+.jumbotron.jumbotron-fluid {
+    background: #FFFFFF;
+}
+body {
+    background: url(img/bg_1.jpg); /* Фоновый цвет и фоновый рисунок*/
+    /*color: #fff; - Цвет текста на странице
+    background-attachment: fixed; - Фон страницы фиксируется 
+    background-repeat: repeat-x; - Изображение повторяется по горизонтали*/
+    /*Фоновое изображение и цвет фона рекомендуется задавать не с помощью HTML,
+    а с помощью CSS. В таком случае код будет валидным и более правильным.*/
+}

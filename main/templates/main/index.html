@@ -1,41 +1,619 @@
 ﻿<!DOCTYPE html>
- <!-- стандарт HTML5 -->
 
 <html lang="ru" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" /> <!-- кодировка -->
-    <meta name="description" content="Арендовать авто." />
-    <title>Аренда авто</title>
+    <meta name="description" content="CityCar - Свобода движения" />
+    <title>CityCar</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'style.css' %}" type="text/css"> <!-- ссылка на css документ -->
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}" type="text/css">
+    <!--<link rel="stylesheet" href="{% static '/main/style.css' %}" type="text/css"> <!-- ссылка на css документ -->
+
+    <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+    <link rel="stylesheet" href="{% static 'main/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'main/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'main/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'main/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'main/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'main/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'main/css/icomoon.css' %}">
+
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="top-bar">
-                <section class="top-bar-section">
-                    <ul class="right">
-                        {% if user.is_authenticated %}
-                        <li><a href="accounts/logout/">Выйти ({{ user.first_name }})</a></li>
-                        <li><a href="reg_log">Личный кабинет</a></li>
-                        <li><a href="{% url 'edit' %}">Поменять данные</a></li>
-                        <!--<li><a href="accounts/logout/">Выйти ({{ user.username }})</a></li>-->
-                        {% else %}
-                        <li><a href="accounts/login/">Войти</a></li>
-                        {% endif %}
-                    </ul>
-                </section>
-            </div>
-            <div>
-                <p></p>
-                <p></p>
-                <p></p>
-                <ul>
-                    <li><a href="/">Главная</a></li>
-                    <li><a href="catalog">Каталог авто</a></li>
+    <!--<header>
+
+    <nav>
+        <ul class="nav justify-content-end">
+            <li class="nav-item">
+                <a class="nav-link active" href="/">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="catalog">Каталог авто</a>
+            </li>
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link" href="reg_log">Личный кабинет</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="accounts/logout/">Выйти ({{ user.first_name }})</a>
+            </li>
+            {% if user.username == 'admin' %}
+            <li class="nav-item">
+                <a class="nav-link" href="admin/">Вход в админку</a>
+            </li>
+            {% else %}
+            {% endif %}
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="accounts/login/">Войти</a>
+            </li>
+            {% endif %}
+        </ul>
+    </nav>-->
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">City<span>Car</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">                
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="reg_log" class="nav-link">Личный кабинет</a></li>
+                    {% if user.is_staff %}
+                    <li class="nav-item"><a href="admin/" class="nav-link">Вход в рабочую панель</a></li>
+                    {% else %}
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <li class="nav-item"><a href="admin/" class="nav-link">Вход в админку</a></li>
+                    {% else %}
+                    {% endif %}
+                    <li class="nav-item"><a href="accounts/logout/" class="nav-link">Выйти ({{ user.first_name }})</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="accounts/login/" class="nav-link">Войти</a></li>
+                    {% endif %}
                 </ul>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+
+    <div class="hero-wrap ftco-degree-bg" style="background-image: url('/static/main/images/bg_2.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+                <div class="col-lg-8 ftco-animate">
+                    <div class="text w-100 text-center mb-md-5 pb-md-5">
+                        <h1 class="mb-4">Fast &amp; Easy Way To Rent A Car</h1>
+                        <p style="font-size: 18px;">A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts</p>
+                        <a href="https://www.youtube.com/watch?v=JaT0dlnKzLQ" class="icon-wrap popup-vimeo d-flex align-items-center mt-4 justify-content-center">
+                            <div class="icon d-flex align-items-center justify-content-center">
+                                <span class="ion-ios-play"></span>
+                            </div>
+                            <div class="heading-title ml-5">
+                                <span>Easy steps for renting a car</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-12	featured-top">
+                    <div class="row no-gutters">
+                        <div class="col-md-4 d-flex align-items-center">
+                            <form action="#" class="request-form ftco-animate bg-primary">
+                                <h2>Make your trip</h2>
+                                <div class="form-group">
+                                    <label for="" class="label">Pick-up location</label>
+                                    <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="label">Drop-off location</label>
+                                    <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                </div>
+                                <div class="d-flex">
+                                    <div class="form-group mr-2">
+                                        <label for="" class="label">Pick-up date</label>
+                                        <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
+                                    </div>
+                                    <div class="form-group ml-2">
+                                        <label for="" class="label">Drop-off date</label>
+                                        <input type="text" class="form-control" id="book_off_date" placeholder="Date">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="" class="label">Pick-up time</label>
+                                    <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="" class="label">ВЫБЕРИТЕ МАРКУ</label>                                   
+                                    <select class="form-control">
+                                        <option selected="">Select</option>
+                                        <option value="1">BMW</option>
+                                        <option value="2">Audi</option>
+                                        <option value="3">Lexus</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" value="Rent A Car Now" class="btn btn-secondary py-3 px-4">
+                                </div>
+                            </form>
+                        </div>
+                        <div class="col-md-8 d-flex align-items-center">
+                            <div class="services-wrap rounded-right w-100">
+                                <h3 class="heading-section mb-4">Better Way to Rent Your Perfect Cars</h3>
+                                <div class="row d-flex mb-4">
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-route"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">Choose Your Pickup Location</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-handshake"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">Select the Best Deal</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 d-flex align-self-stretch ftco-animate">
+                                        <div class="services w-100 text-center">
+                                            <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-rent"></span></div>
+                                            <div class="text w-100">
+                                                <h3 class="heading mb-2">Reserve Your Rental Car</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p><a href="#" class="btn btn-primary py-3 px-4">Reserve Your Perfect Car</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section ftco-no-pt bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 heading-section text-center ftco-animate mb-5">
+                    <span class="subheading">What we offer</span>
+                    <h2 class="mb-2">Feeatured Vehicles</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="carousel-car owl-carousel">
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/car-1.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    {% if user.is_authenticated %}
+                                    <p class="d-flex mb-0 d-block"><a href="/" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                    {% else %}
+                                    <p class="d-flex mb-0 d-block"><a href="{% url 'login' %}" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/bg_1.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Audi RS3</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Купе</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/bg_1.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Audi RS3</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Купе</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/bg_1.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Audi RS3</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Купе</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/bg_1.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Audi RS3</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Купе</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/bg_1.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Audi RS3</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Купе</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/car-2.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/car-2.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/car-2.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/car-2.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style=" background-image: url('/static/main/images/car-3.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="car-wrap rounded ftco-animate">
+                                <div class="img rounded d-flex align-items-end" style="background-image: url('/static/main/images/car-4.jpg');">
+                                </div>
+                                <div class="text">
+                                    <h2 class="mb-0"><a href="#">Mercedes Grand Sedan</a></h2>
+                                    <div class="d-flex mb-3">
+                                        <span class="cat">Cheverolet</span>
+                                        <p class="price ml-auto">$500 <span>/day</span></p>
+                                    </div>
+                                    <p class="d-flex mb-0 d-block"><a href="#" class="btn btn-primary py-2 mr-1">Book now</a> <a href="#" class="btn btn-secondary py-2 ml-1">Details</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="yak2" class="ftco-section ftco-about">
+        <div class="container">
+            <div class="row no-gutters">
+                <div class="col-md-6 p-md-5 img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/static/main/images/about.jpg');">
+                </div>
+                <div class="col-md-6 wrap-about ftco-animate">
+                    <div class="heading-section heading-section-white pl-md-5">
+                        <span class="subheading">О Нас</span>
+                        <h2 class="mb-4">Добро пожаловать на CityCar</h2>     
+                        <p>Современный быстрый темп жизни и стремительный рост населения привели к тому, что количество личных автомобилей за последние годы существенно увеличилось.</p>
+                        <p>Однако, очень часто бывают ситуации, когда люди не могут воспользоваться собственным автомобилем: некоторые не имеют личных авто, машина может быть в ремонте или человек отправился в другой город на самолете или поезде, а по приезде ему требуется легковой автомобиль без водителя для передвижения по городу, поэтому особенно востребован и пользуется популярностью прокат легковых автомобилей. Крупные города часто принимают людей, ограниченных во времени, и арендованный автомобиль позволяет им успеть сделать все необходимые дела и посетить запланированные места.</p>
+                        <p><a href="catalog" class="btn btn-primary py-3 px-4">Выбрать авто</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">Services</span>
+                    <h2 class="mb-3">Our Latest Services</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-wedding-car"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">Wedding Ceremony</h3>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">City Transfer</h3>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">Airport Transfer</h3>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="services services-2 w-100 text-center">
+                        <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-transportation"></span></div>
+                        <div class="text w-100">
+                            <h3 class="heading mb-2">Whole City Tour</h3>
+                            <p>A small river named Duden flows by their place and supplies it with the necessary regelialia.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="yak1" class="ftco-section testimony-section bg-light">
+        <div class="container">
+            <div class="row justify-content-center mb-5">
+                <div class="col-md-7 text-center heading-section ftco-animate">
+                    <span class="subheading">Отзывы</span>
+                    <h2 class="mb-3">Счастливые Клиенты</h2>
+                </div>
+            </div>
+            <div class="row ftco-animate">
+                <div class="col-md-12">
+                    <div class="carousel-testimony owl-carousel ftco-owl">
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/static/main/images/person_10.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Сервис высокого качества, быстрое оформление, надёжные автомобили</p>
+                                    <p class="name">Всеволод Демченко</p>
+                                    <span class="position">Системный администратор</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/static/main/images/person_12.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Приятные цены, отличные менеджеры, что ещё нужно?</p>
+                                    <p class="name">Никита Кухарский</p>
+                                    <span class="position">Дизайнер, разработчик игр</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/static/main/images/person_13.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Классный сервис! Очень помог в нужный момент</p>
+                                    <p class="name">Владислав Дановский</p>
+                                    <span class="position">Веб-разработчик</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/static/main/images/person_5.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">11/10!<br>Всем советую</p>
+                                    <p class="name">Артём Савченко</p>
+                                    <span class="position">Сантехник</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item">
+                            <div class="testimony-wrap rounded text-center py-4 pb-5">
+                                <div class="user-img mb-2" style="background-image: url('/static/main/images/person_4.jpg')">
+                                </div>
+                                <div class="text pt-4">
+                                    <p class="mb-4">Прекрасный персонал, всё быстро, чётко, очень понравилось!</p>
+                                    <p class="name">Герман Волчёк</p>
+                                    <span class="position">Менеджер по продажам</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2"><a href="/" class="logo">City<span>Car</span></a></h2>
+                        <p>CityCar — Свобода движения</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="https://www.instagram.com/"><span class="icon-instagram"></span></a></li>
+                            <li class="ftco-animate"><a href="https://telegram.org/"><span class="icon-telegram"></span></a></li>
+                            <li class="ftco-animate"><a href="https://vk.com/"><span class="icon-vk"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Информация</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="/" class="py-2 d-block">Главная</a></li>
+                            <li><a href="#yak2" class="py-2 d-block">О Нас</a></li>
+                            <li><a href="catalog" class="py-2 d-block">Каталог авто</a></li>
+                            <li><a href="#yak1" class="py-2 d-block">Отзывы</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Служба поддержки</h2>
+                        <ul class="list-unstyled">
+                            <li>Пишите нам на почту</li>
+                            <li><a href="mailto: support@citycarauto.com"><span class="text">support@citycarauto.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">У Вас есть вопросы?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">г. Минск, улица Петруся Бровки 4, каб. 666</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+375 (33) 148-86-66 </span></a></li>
+                                <li><a href="mailto: info@citycarauto.com"><span class="icon icon-envelope"></span><span class="text">info@citycarauto.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> CityCar | Все права защищены | BSUIR <i class="icon-heart color-danger" aria-hidden="true"></i>
+                        
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+ 
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="{% static '/main/js/jquery.min.js' %}"></script>
+    <script src="{% static '/main/js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static '/main/js/popper.min.js' %}"></script>
+    <script src="{% static '/main/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/main/js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static '/main/js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static '/main/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static '/main/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static '/main/js/aos.js' %}"></script>
+    <script src="{% static '/main/js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static '/main/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static '/main/js/jquery.timepicker.min.js' %}"></script>
+    <script src="{% static '/main/js/scrollax.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="{% static '/main/js/google-map.js' %}"></script>
+    <script src="{% static '/main/js/main.js' %}"></script>
+
+
+    <!--</header>-->
+
 </body>
 </html>

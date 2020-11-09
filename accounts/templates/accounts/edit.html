@@ -3,16 +3,291 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <meta name="description" />
+    <title>Личный кабинет</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'main/css/editstyle.css' %}">
 </head>
 <body>
-    <h1>Edit your account</h1>
-    <p>You can edit your account using the following form:</p>
-    <form action="." method="post" enctype="multipart/form-data">
+
+    <form class="box" action="." method="post">
+
+        <h1>Отредактируйте свой аккаунт</h1>
         {{ user_form.as_p }}
         {{ profile_form.as_p }}
         {% csrf_token %}
-        <p><input type="submit" value="Сохранить изменения"></p>
+        <input type="submit" value="Сохранить изменения" />
+        <input type="button" onclick="history.back();" value="Назад" />
+        <input type="hidden" name="next" value="{{ next }}" />
     </form>
+
+
+
+
+
+
+
+
+
+    <!--<form action="." method="post" class="request-form ftco-animate bg-primary">
+        <h2>Отредактируйте свой аккаунт</h2>
+        {{ user_form.as_p }}
+        {{ profile_form.as_p }}
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="" class="label">Имя</label>
+            <input type="text" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="" class="label">Фамилия</label>
+            <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+        </div>
+        <div class="d-flex">
+            <div class="form-group mr-2">
+                <label for="" class="label">Pick-up date</label>
+                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
+            </div>
+            <div class="form-group ml-2">
+                <label for="" class="label">Drop-off date</label>
+                <input type="text" class="form-control" id="book_off_date" placeholder="Date">
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="" class="label">Pick-up time</label>
+            <input type="text" class="form-control" id="time_pick" placeholder="Time">
+        </div>
+
+        <div class="form-group">
+            <label for="" class="label">ВЫБЕРИТЕ МАРКУ</label>
+            <select class="form-control">
+                <option selected="">Select</option>
+                <option value="1">BMW</option>
+                <option value="2">Audi</option>
+                <option value="3">Lexus</option>
+            </select>
+        </div>
+        <div class="form-group">
+    <input type="submit" value="Сохранить изменения" class="btn btn-secondary py-3 px-4">
+        </div>
+    </form>-->
+
+
+
+
+
 </body>
 </html>
+
+
+        <!--<!DOCTYPE html>
+
+        <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <meta charset="utf-8" />
+            <meta name="description" content="Арендовать авто." />
+            <title>Каталог авто</title>
+            {% load static %}
+            <link rel="stylesheet" href="{% static 'main/css/bootstrap.min.css' %}" type="text/css">
+            <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+            <link rel="stylesheet" href="{% static 'main/css/style.css' %}">
+
+            <link rel="stylesheet" href="{% static 'main/css/open-iconic-bootstrap.min.css' %}">
+            <link rel="stylesheet" href="{% static 'main/css/animate.css' %}">
+
+            <link rel="stylesheet" href="{% static 'main/css/owl.carousel.min.css' %}">
+            <link rel="stylesheet" href="{% static 'main/css/owl.theme.default.min.css' %}">
+            <link rel="stylesheet" href="{% static 'main/css/magnific-popup.css' %}">
+
+            <link rel="stylesheet" href="{% static 'main/css/aos.css' %}">
+
+            <link rel="stylesheet" href="{% static 'main/css/ionicons.min.css' %}">
+
+            <link rel="stylesheet" href="{% static 'main/css/bootstrap-datepicker.css' %}">
+            <link rel="stylesheet" href="{% static 'main/css/jquery.timepicker.css' %}">
+
+
+            <link rel="stylesheet" href="{% static 'main/css/flaticon.css' %}">
+            <link rel="stylesheet" href="{% static 'main/css/icomoon.css' %}">
+
+
+        </head>
+        <body>
+
+            <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+                <div class="container">
+                    <a class="navbar-brand" href="/">City<span>Car</span></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="oi oi-menu"></span> Menu
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="ftco-nav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item active"><a href="/" class="nav-link">Главная</a></li>
+                            <li class="nav-item"><a href="catalog" class="nav-link">Каталог авто</a></li>
+                            {% if user.is_authenticated %}
+                            <li class="nav-item"><a href="reg_log" class="nav-link">Личный кабинет</a></li>
+                            {% if user.is_staff %}
+                            <li class="nav-item"><a href="admin/" class="nav-link">Вход в рабочую панель</a></li>
+                            {% else %}
+                            {% endif %}
+                            {% if user.is_superuser %}
+                            <li class="nav-item"><a href="admin/" class="nav-link">Вход в админку</a></li>
+                            {% else %}
+                            {% endif %}
+                            <li class="nav-item"><a href="accounts/logout/" class="nav-link">Выйти ({{ user.first_name }})</a></li>
+                            {% else %}
+                            <li class="nav-item"><a href="accounts/login/" class="nav-link">Войти</a></li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="hero-wrap ftco-degree-bg" style="background-image: url('/static/main/images/bg_1.jpg');" data-stellar-background-ratio="0.5">
+                <div class="overlay"></div>
+                <div class="container">
+                    <div class="row no-gutters slider-text justify-content-start align-items-center justify-content-center">
+                        <div class="col-lg-8 ftco-animate">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="ftco-section ftco-no-pt bg-light">
+                <div class="container">
+                    <div class="row no-gutters">
+                        <div class="col-md-12	featured-top">
+                            <div class="row no-gutters">
+                                <div class="col-md-4 d-flex align-items-center">
+                                    <form action="." method="post" class="request-form ftco-animate bg-primary">
+                                        <h2>Отредактируйте свой аккаунт</h2>
+                                        {{ user_form.as_p }}
+                                        {{ profile_form.as_p }}
+                                        {% csrf_token %}
+                                        <!--<div class="form-group">
+                                            <label for="" class="label">Имя</label>
+                                            <input type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="label">Фамилия</label>
+                                            <input type="text" class="form-control" placeholder="City, Airport, Station, etc">
+                                        </div>
+                                        <div class="d-flex">
+                                            <div class="form-group mr-2">
+                                                <label for="" class="label">Pick-up date</label>
+                                                <input type="text" class="form-control" id="book_pick_date" placeholder="Date">
+                                            </div>
+                                            <div class="form-group ml-2">
+                                                <label for="" class="label">Drop-off date</label>
+                                                <input type="text" class="form-control" id="book_off_date" placeholder="Date">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="" class="label">Pick-up time</label>
+                                            <input type="text" class="form-control" id="time_pick" placeholder="Time">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="" class="label">ВЫБЕРИТЕ МАРКУ</label>
+                                            <select class="form-control">
+                                                <option selected="">Select</option>
+                                                <option value="1">BMW</option>
+                                                <option value="2">Audi</option>
+                                                <option value="3">Lexus</option>
+                                            </select>
+                                        </div>-->
+        <!--<div class="form-group">
+                                            <input type="submit" value="Сохранить изменения" class="btn btn-secondary py-3 px-4">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="ftco-footer ftco-bg-dark ftco-section">
+                <div class="container">
+                    <div class="row mb-5">
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2"><a href="#" class="logo">City<span>Car</span></a></h2>
+                                <p>CityCar — Свобода движения</p>
+                                <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                                    <li class="ftco-animate"><a href="https://www.instagram.com/"><span class="icon-instagram"></span></a></li>
+                                    <li class="ftco-animate"><a href="https://telegram.org/"><span class="icon-telegram"></span></a></li>
+                                    <li class="ftco-animate"><a href="https://vk.com/"><span class="icon-vk"></span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4 ml-md-5">
+                                <h2 class="ftco-heading-2">Информация</h2>
+                                <ul class="list-unstyled">
+                                    <li><a href="/" class="py-2 d-block">Главная</a></li>
+                                    <li><a href="#" class="py-2 d-block">О Нас</a></li>
+                                    <li><a href="catalog" class="py-2 d-block">Каталог авто</a></li>
+                                    <li><a href="#yak1" class="py-2 d-block">Отзывы</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2">Служба поддержки</h2>
+                                <ul class="list-unstyled">
+                                    <li>Пишите нам на почту</li>
+                                    <li><a href="mailto: support@citycarauto.com"><span class="text">support@citycarauto.com</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="ftco-footer-widget mb-4">
+                                <h2 class="ftco-heading-2">У Вас есть вопросы?</h2>
+                                <div class="block-23 mb-3">
+                                    <ul>
+                                        <li><span class="icon icon-map-marker"></span><span class="text">г. Минск, улица Петруся Бровки 4, каб. 666</span></li>
+                                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">+375 (33) 148-86-66 </span></a></li>
+                                        <li><a href="mailto: info@citycarauto.com"><span class="icon icon-envelope"></span><span class="text">info@citycarauto.com</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+
+                            <p>
+                                Copyright &copy;
+                                <script>document.write(new Date().getFullYear());</script> CityCar | Все права защищены | BSUIR <i class="icon-heart color-danger" aria-hidden="true"></i>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+
+            <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+            <script src="{% static '/main/js/jquery.min.js' %}"></script>
+            <script src="{% static '/main/js/jquery-migrate-3.0.1.min.js' %}"></script>
+            <script src="{% static '/main/js/popper.min.js' %}"></script>
+            <script src="{% static '/main/js/bootstrap.min.js' %}"></script>
+            <script src="{% static '/main/js/jquery.easing.1.3.js' %}"></script>
+            <script src="{% static '/main/js/jquery.waypoints.min.js' %}"></script>
+            <script src="{% static '/main/js/jquery.stellar.min.js' %}"></script>
+            <script src="{% static '/main/js/owl.carousel.min.js' %}"></script>
+            <script src="{% static '/main/js/jquery.magnific-popup.min.js' %}"></script>
+            <script src="{% static '/main/js/aos.js' %}"></script>
+            <script src="{% static '/main/js/jquery.animateNumber.min.js' %}"></script>
+            <script src="{% static '/main/js/bootstrap-datepicker.js' %}"></script>
+            <script src="{% static '/main/js/jquery.timepicker.min.js' %}"></script>
+            <script src="{% static '/main/js/scrollax.min.js' %}"></script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+            <script src="{% static '/main/js/google-map.js' %}"></script>
+            <script src="{% static '/main/js/main.js' %}"></script>
+
+        </body>
+        </html>-->
