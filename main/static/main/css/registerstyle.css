@@ -12,9 +12,9 @@
 
 .box {
     width: 300px;
-    padding: 40px;
+    padding: 32px;
     position: absolute;
-    top: 50%;
+    top: 27%;
     left: 50%;
     transform: translate(-50%,-28%);
     background: #191919; /*#1089ff*/
@@ -31,7 +31,7 @@
         border: 0;
         background: none;
         display: block;
-        margin: 20px auto;
+        margin: 30px auto;
         text-align: center;
         border: 2px solid #3498db;
         padding: 14px 10px;
@@ -40,9 +40,10 @@
         color: white;
         border-radius: 24px;
         transition: 0.25s;
+        font-size: 15px;
     }
 
-        .box input[type = "text"]:focus, .box input[type = "password"]:focus {
+        .box input[type = "text"]:focus, .box input[type = "password"]:focus, .box input[type = "email"]:focus {
             width: 280px;
             border-color: #2ecc71;
         }

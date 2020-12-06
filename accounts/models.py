@@ -7,14 +7,14 @@ from django.dispatch import receiver
 
 
 def validate_date(value):
-    if value <= 0:
+    if value <= 1 or value >= 50:
         raise ValidationError('%s Введите корректное значение' % value)
 
 class Profile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete = models.CASCADE)
     patronymic = models.CharField('Отчество', max_length=50, help_text="*")
-    experience = models.IntegerField('Опыт вождения', validators=[validate_date], help_text="*")
-    driver_license = models.CharField('№ лиценции', max_length=8, unique=True, help_text="*")
+    experience = models.IntegerField('Опыт вождения', validators=[validate_date], help_text="*", null=False)
+    driver_license = models.CharField('№ лицензии', max_length=8, unique=True, help_text="*")
     phone = models.CharField('Телефон', max_length=13, unique=True, help_text="*")
     address = models.CharField('Адрес', max_length=50 , blank=True, null=True, help_text="Формат: <em>Якуба Коласа 5, кв. 8</em>.")
     date_of_birth = models.DateField('Дата рождения', blank=True, null=True, help_text="Формат: <em>ГГГГ-ММ-ДД</em>.")

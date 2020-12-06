@@ -19,15 +19,20 @@ Including another URLconf
 # Uncomment next two lines to enable admin:
 from django.contrib import admin
 from django.conf.urls import url, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     # Uncomment the next line to enable the admin:
     url('admin/', admin.site.urls),
     url(r'^$',include('main.urls')),
-    url('catalog',include('catalog.urls')),
+    url('catalog/',include('catalog.urls')),
     url('reg_log',include('reg_log.urls')),
     url('accounts/', include('django.contrib.auth.urls')),
     url('registration/', include('accounts.urls')),
     url('edit/', include('accounts.urls')),
     #url('user_cab',include('user_cab.urls')),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

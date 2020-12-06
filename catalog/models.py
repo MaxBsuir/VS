@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.urls import reverse
 
 def validate_even(value):
     if value <= 0:
@@ -16,32 +17,88 @@ class Auto(models.Model):
         ('Хэтчбэк', 'Хэтчбэк'),
         ('Купе', 'Купе'),
         ('Лифтбэк', 'Лифтбэк'),
-        ('Кроссовер', 'Кроссовер'),
         ('Внедорожник', 'Внедорожник'),
+        ('Родстер', 'Родстер'),
     )
-    brand = models.CharField('Марка', max_length=50)
+    FUEL_TYPE = (
+        ('Бензин', 'Бензин'),
+        ('Дизель', 'Дизель'),
+        ('Гибрид', 'Гибрид'),
+    )
+    COLOR = (
+        ('Красный', 'Красный'),
+        ('Синий', 'Синий'),
+        ('Чёрный', 'Чёрный'),
+        ('Зеленый', 'Зеленый'),
+        ('Серый', 'Серый'),
+        ('Белый', 'Белый'),
+        ('Оранжевый', 'Оранжевый'),
+        ('Жёлтый', 'Жёлтый'),
+        ('Коричневый', 'Коричневый'),
+    )
+    BRAND=(
+        ('Audi', 'Audi'),
+        ('BMW', 'BMW'),
+        ('Chevrolet', 'Chevrolet'),
+        ('Citroen', 'Citroen'),
+        ('Ford', 'Ford'),
+        ('Geely', 'Geely'),
+        ('Honda', 'Honda'),
+        ('Hyundai', 'Hyundai'),
+        ('Kia', 'Kia'),
+        ('LADA', 'LADA'),
+        ('Lexus', 'Lexus'),
+        ('Mazda', 'Mazda'),
+        ('Mercedec-Benz', 'Mercedec-Benz'),
+        ('Mitsubishi', 'Mitsubishi'),
+        ('Nissan', 'Nissan'),
+        ('Opel', 'Opel'),
+        ('Peugeot', 'Peugeot'),
+        ('Range Rover', 'Range Rover'),
+        ('Renault', 'Renault'),
+        ('Skoda', 'Skoda'),
+        ('Toyota', 'Toyota'),
+        ('Volkswagen', 'Volkswagen'),
+        ('Volvo', 'Volvo'),
+    )
+    PLACES=(
+        ('2', '2'),
+        ('4', '4'),
+        ('5', '5'),
+        ('7', '7'),
+    )
+    brand = models.CharField('Марка', max_length=50, choices=BRAND)
     model = models.CharField('Модель', max_length=50)
     body_type = models.CharField('Тип кузова', max_length=50, choices=BODY_TYPE)
-    number = models.CharField('Номер', max_length=50, unique=True)
+    number = models.CharField('Номер', max_length=5, unique=True)
     date_of_issue = models.DateField('Дата выпуска')
-    color = models.CharField('Цвет', max_length=50)
-    engine = models.FloatField('Объём двигателя', max_length=50, validators=[validate_even])
+    color = models.CharField('Цвет', max_length=50, choices=COLOR)
+    engine = models.FloatField('Объём двигателя (л.)', max_length=50, validators=[validate_even])
     transmission = models.CharField('Тип КП', max_length=50, choices=TRANSMISSION)
-    consumption_per_100 = models.FloatField('Расход на 100 км', max_length=50, validators=[validate_even])
-    price_per_day = models.DecimalField('Цена в день', max_digits=18, decimal_places=2, validators=[validate_even])
+    consumption_per_100 = models.FloatField('Расход (на 100 км.)', max_length=50, validators=[validate_even])
+    price_per_day = models.DecimalField('Цена в день (Br)', max_digits=18, decimal_places=2, validators=[validate_even])
     condition = models.BooleanField('Доступна', default=True)
+    reserve = models.CharField('Запас хода (км.)', max_length=5)
+    places = models.CharField('Места', max_length=2, choices=PLACES)
+    capacity = models.CharField('Багажник (л.)', max_length=5)
+    fuel = models.CharField('Топливо', max_length=50, choices=FUEL_TYPE)
+    power = models.CharField('Мощность (л.с.)', max_length=4)
+    foto = models.ImageField('Фото', upload_to='catalog/')
    # def __str__(self):
        # template = '{0.id} {0.brand} {0.model}'
         #return template.format(self)
+    def get_absolute_url(self):
+         return reverse('carsingle',
+                      args=[self.id])
     def __str__(self):
-         return '{} {}'.format(self.id, self.brand)
+         return '{}, {}, {}'.format(self.id, self.brand, self.number)
 
 
 class Road_Accident(models.Model):
     id_auto = models.ForeignKey(Auto, on_delete=models.CASCADE)    
     #id_auto = models.ForeignKey(Auto, on_delete=models.CASCADE)
     #id_auto = models.ForeignKey(Auto, on_delete=models.CASCADE)
-    date_road_accident = models.DateTimeField('Дата ДТП')
+    date_road_accident = models.DateField('Дата ДТП')
     defect = models.TextField('Повреждения')
     def __str__(self):
          return '{}'.format(self.id)

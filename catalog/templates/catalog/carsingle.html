@@ -1,0 +1,315 @@
+﻿<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <title>Информация об автомобиле</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="{% static 'catalog/css/bootstrap.min.css' %}" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'catalog/css/open-iconic-bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'catalog/css/animate.css' %}">
+
+    <link rel="stylesheet" href="{% static 'catalog/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'catalog/css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'catalog/css/magnific-popup.css' %}">
+
+    <link rel="stylesheet" href="{% static 'catalog/css/aos.css' %}">
+
+    <link rel="stylesheet" href="{% static 'catalog/css/ionicons.min.css' %}">
+
+    <link rel="stylesheet" href="{% static 'catalog/css/bootstrap-datepicker.css' %}">
+    <link rel="stylesheet" href="{% static 'catalog/css/jquery.timepicker.css' %}">
+
+
+    <link rel="stylesheet" href="{% static 'catalog/css/flaticon.css' %}">
+    <link rel="stylesheet" href="{% static 'catalog/css/icomoon.css' %}">
+    <link rel="stylesheet" href="{% static 'catalog/css/style.css' %}">    
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="/">City<span>Car</span></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="/" class="nav-link">Главная</a></li>
+                    <li class="nav-item active"><a href="http://127.0.0.1:8000/catalog/" class="nav-link">Каталог авто</a></li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item"><a href="reg_log" class="nav-link">Личный кабинет</a></li>
+                    {% if user.is_staff %}
+                    <li class="nav-item"><a href="admin/" class="nav-link">Вход в рабочую панель</a></li>
+                    {% else %}
+                    {% endif %}
+                    {% if user.is_superuser %}
+                    <li class="nav-item"><a href="admin/" class="nav-link">Вход в админку</a></li>
+                    {% else %}
+                    {% endif %}
+                    <li class="nav-item"><a href="accounts/logout/" class="nav-link">Выйти ({{ user.first_name }})</a></li>
+                    {% else %}
+                    <li class="nav-item"><a href="accounts/login/" class="nav-link">Войти</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END nav -->
+
+    <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('/static/catalog/images/bg_3.jpg');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+                <div class="col-md-9 ftco-animate pb-5">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="/">Главная <i class="ion-ios-arrow-forward"></i></a></span> <span class="mr-2"><a href="/catalog">Каталог авто <i class="ion-ios-arrow-forward"></i></a></span> Информация об автомобиле <i class="ion-ios-arrow-forward"></i></p>
+                    <h1 class="mb-3 bread">Информация об автомобиле</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="ftco-section ftco-car-details">
+        <div class="container">            
+            <div class="row justify-content-center">
+                <div class="col-md-12">
+                    <div class="car-details">
+                        <div class="img rounded" style="background-image: url('{{ carsingle.foto.url }}');"></div>
+                        <div class="text text-center">
+                            <span class="subheading">{{ carsingle.model }}</span>
+                            <h2>{{ carsingle.brand }}</h2>
+                        </div>
+                    </div>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services">
+                        <div class="media-body py-md-4">
+                            <div class="d-flex mb-3 align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-dashboard"></span></div>
+                                <div class="text">
+                                    <h3 class="heading mb-0 pl-3">
+                                        Запас хода
+                                        <span>{{ carsingle.reserve }} км.</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services">
+                        <div class="media-body py-md-4">
+                            <div class="d-flex mb-3 align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-pistons"></span></div>
+                                <div class="text">
+                                    <h3 class="heading mb-0 pl-3">
+                                        Тип трансмиссии
+                                        <span>{{ carsingle.transmission }}</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services">
+                        <div class="media-body py-md-4">
+                            <div class="d-flex mb-3 align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-car-seat"></span></div>
+                                <div class="text">
+                                    <h3 class="heading mb-0 pl-3">
+                                        Количество мест
+                                        <span>{{ carsingle.places }}</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services">
+                        <div class="media-body py-md-4">
+                            <div class="d-flex mb-3 align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-backpack"></span></div>
+                                <div class="text">
+                                    <h3 class="heading mb-0 pl-3">
+                                        Вместимость багажника
+                                        <span>{{ carsingle.capacity }} л.</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md d-flex align-self-stretch ftco-animate">
+                    <div class="media block-6 services">
+                        <div class="media-body py-md-4">
+                            <div class="d-flex mb-3 align-items-center">
+                                <div class="icon d-flex align-items-center justify-content-center"><span class="flaticon-diesel"></span></div>
+                                <div class="text">
+                                    <h3 class="heading mb-0 pl-3">
+                                        Топливо
+                                        <span>{{ carsingle.fuel }}</span>
+                                    </h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 pills">
+                    <div class="bd-example bd-example-tabs">
+                        <div class="d-flex justify-content-center">
+                            <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="pills-description-tab" data-toggle="pill" href="#pills-description" role="tab" aria-controls="pills-description" aria-expanded="true">Характеристики</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content" id="pills-tabcontent">
+                            <div class="tab-pane fade show active" id="pills-description" role="tabpanel" aria-labelledby="pills-description-tab">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <ul class="features">
+                                            {% if carsingle.condition is True %}
+                                            <li class="check">Доступна: <span class="ion-ios-checkmark"></span></li>
+                                            {% else %}
+                                            <li class="remove">Не доступна: <span class="ion-ios-close"></span></li>
+                                            {% endif %}
+                                            <li class="check">Тип кузова: <span class="carsingle">{{ carsingle.body_type }}</span></li>
+                                            <li class="check">Расход на 100 км: <span class="carsingle">{{ carsingle.consumption_per_100 }} л.</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="features">
+                                            <li class="check">Цена в день: <span class="carsingle">Br {{ carsingle.price_per_day }}</span></li>
+                                            <li class="check">Мощность: <span class="carsingle">{{ carsingle.power }} л.с.</span></li>
+                                            <li class="check">Объём двигателя: <span class="carsingle">{{ carsingle.engine }} л.</span></li>
+                                            <!--<li class="remove"><span class="ion-ios-close"></span>Бортовой компьютер</li>-->
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <ul class="features">
+                                            <li class="check">Цвет: <span class="carsingle">{{ carsingle.color }}</span></li>
+                                            <li class="check">Дата выпуска: <span class="carsingle">{{ carsingle.date_of_issue }}</span></li>
+                                            <li class="check">Номер: <span class="carsingle">{{ carsingle.number }}</span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-center">
+                                <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                    {% if user.is_authenticated and carsingle.condition is True %}
+                                    <p class="d-flex mb-0 d-block"><a href="confirm" class="btn btn-primary py-2 mr-1">Заказать</a></p>
+                                    {% else %}
+                                    <p class="d-flex mb-0 d-block"><a class="btn btn-secondary py-2 ml-1">Машина недоступна</a></p>
+                                    <!--<p class="d-flex mb-0 d-block"><a href="{% url 'login' %}" class="btn btn-primary py-2 mr-1">Заказать</a></p>-->
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            {% if user.is_authenticated is False and carsingle.condition is True %}
+                            <p class="heading mb-0 pl-3"><span>*Вы не авторизованы</span></p>
+                            {% endif %}
+                        </div>                            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+        
+    <footer class="ftco-footer ftco-bg-dark ftco-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2"><a href="/" class="logo">City<span>Car</span></a></h2>
+                        <p>CityCar — Свобода движения</p>
+                        <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
+                            <li class="ftco-animate"><a href="https://www.instagram.com/"><span class="icon-instagram"></span></a></li>
+                            <li class="ftco-animate"><a href="https://telegram.org/"><span class="icon-telegram"></span></a></li>
+                            <li class="ftco-animate"><a href="https://vk.com/"><span class="icon-vk"></span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4 ml-md-5">
+                        <h2 class="ftco-heading-2">Информация</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="/" class="py-2 d-block">Главная</a></li>
+                            <li><a href="/#about" class="py-2 d-block">О Нас</a></li>
+                            <li><a href="http://127.0.0.1:8000/catalog/" class="py-2 d-block">Каталог авто</a></li>
+                            <li><a href="/#reviews" class="py-2 d-block">Отзывы</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">Служба поддержки</h2>
+                        <ul class="list-unstyled">
+                            <li>Пишите нам на почту</li>
+                            <li><a href="mailto: support@citycarauto.com"><span class="text">support@citycarauto.com</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md">
+                    <div class="ftco-footer-widget mb-4">
+                        <h2 class="ftco-heading-2">У Вас есть вопросы?</h2>
+                        <div class="block-23 mb-3">
+                            <ul>
+                                <li><span class="icon icon-map-marker"></span><span class="text">г. Минск, улица Петруся Бровки 4, каб. 666</span></li>
+                                <li><a href="#"><span class="icon icon-phone"></span><span class="text">+375 (33) 148-86-66 </span></a></li>
+                                <li><a href="mailto: info@citycarauto.com"><span class="icon icon-envelope"></span><span class="text">info@citycarauto.com</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+
+                    <p>
+                        Copyright &copy;
+                        <script>document.write(new Date().getFullYear());</script> CityCar | Все права защищены | BSUIR <i class="icon-heart color-danger" aria-hidden="true"></i>
+
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee" /><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00" /></svg></div>
+
+
+    <script src="{% static '/catalog/js/jquery.min.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery-migrate-3.0.1.min.js' %}"></script>
+    <script src="{% static '/catalog/js/popper.min.js' %}"></script>
+    <script src="{% static '/catalog/js/bootstrap.min.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery.easing.1.3.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery.waypoints.min.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery.stellar.min.js' %}"></script>
+    <script src="{% static '/catalog/js/owl.carousel.min.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery.magnific-popup.min.js' %}"></script>
+    <script src="{% static '/catalog/js/aos.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery.animateNumber.min.js' %}"></script>
+    <script src="{% static '/catalog/js/bootstrap-datepicker.js' %}"></script>
+    <script src="{% static '/catalog/js/jquery.timepicker.min.js' %}"></script>
+    <script src="{% static '/catalog/js/scrollax.min.js' %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
+    <script src="{% static '/catalog/js/google-map.js' %}"></script>
+    <script src="{% static '/catalog/js/main.js' %}"></script>
+
+</body>
+</html>
